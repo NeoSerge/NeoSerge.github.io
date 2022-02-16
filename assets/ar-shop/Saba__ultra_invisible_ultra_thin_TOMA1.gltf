@@ -1,0 +1,330 @@
+{
+  "extensionsUsed": [
+    "KHR_texture_transform"
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 5005,
+      "type": "VEC3",
+      "max": [
+        0.06782105565071106,
+        0.10187090933322906,
+        0.10007259249687195
+      ],
+      "min": [
+        -0.068854823708534241,
+        -0.044177640229463577,
+        -0.00031254999339580536
+      ]
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 5005,
+      "type": "VEC3",
+      "max": [
+        0.86062955856323242,
+        0.8604620099067688,
+        0.99999988079071045
+      ],
+      "min": [
+        -0.85951435565948486,
+        -0.8599812388420105,
+        0.45935037732124329
+      ]
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 5005,
+      "type": "VEC4",
+      "max": [
+        -0.069069430232048035,
+        0.87630295753479,
+        0.88537400960922241,
+        -1.0
+      ],
+      "min": [
+        -1.0,
+        -0.85368549823760986,
+        -0.86007446050643921,
+        -1.0
+      ]
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 5005,
+      "type": "VEC2",
+      "max": [
+        0.83479899168014526,
+        1.0
+      ],
+      "min": [
+        0.16520099341869354,
+        0.0
+      ]
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5125,
+      "count": 29376,
+      "type": "SCALAR",
+      "max": [
+        5004.0
+      ],
+      "min": [
+        0.0
+      ]
+    },
+    {
+      "bufferView": 5,
+      "componentType": 5126,
+      "count": 240,
+      "type": "SCALAR",
+      "max": [
+        7.9666671752929688
+      ],
+      "min": [
+        0.0
+      ]
+    },
+    {
+      "bufferView": 6,
+      "componentType": 5126,
+      "count": 240,
+      "type": "VEC3",
+      "max": [
+        -0.0015474108513444662,
+        0.10000000149011612,
+        0.14964005351066589
+      ],
+      "min": [
+        -0.0015474108513444662,
+        0.10000000149011612,
+        0.14964005351066589
+      ]
+    },
+    {
+      "bufferView": 7,
+      "componentType": 5126,
+      "count": 240,
+      "type": "VEC4",
+      "max": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "min": [
+        0.0,
+        -1.0,
+        0.0,
+        -0.99999964237213135
+      ]
+    },
+    {
+      "bufferView": 8,
+      "componentType": 5126,
+      "count": 240,
+      "type": "VEC3",
+      "max": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "min": [
+        2.0,
+        2.0,
+        2.0
+      ]
+    }
+  ],
+  "animations": [
+    {
+      "channels": [
+        {
+          "sampler": 0,
+          "target": {
+            "node": 0,
+            "path": "translation"
+          }
+        },
+        {
+          "sampler": 1,
+          "target": {
+            "node": 0,
+            "path": "rotation"
+          }
+        },
+        {
+          "sampler": 2,
+          "target": {
+            "node": 0,
+            "path": "scale"
+          }
+        }
+      ],
+      "samplers": [
+        {
+          "input": 5,
+          "output": 6
+        },
+        {
+          "input": 5,
+          "output": 7
+        },
+        {
+          "input": 5,
+          "output": 8
+        }
+      ],
+      "name": "Saba__ultra_invisible_ultra_thin_TOMA1"
+    }
+  ],
+  "asset": {
+    "generator": "Plattar UnityGLTF (2020.3.18f1)",
+    "version": "2.0"
+  },
+  "buffers": [
+    {
+      "uri": "Saba__ultra_invisible_ultra_thin_TOMA1.bin",
+      "byteLength": 368304
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 60060
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 60060,
+      "byteLength": 60060
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 120120,
+      "byteLength": 80080
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 200200,
+      "byteLength": 40040
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 240240,
+      "byteLength": 117504
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 357744,
+      "byteLength": 960
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 358704,
+      "byteLength": 2880
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 361584,
+      "byteLength": 3840
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 365424,
+      "byteLength": 2880
+    }
+  ],
+  "images": [
+    {
+      "uri": "06B - Saba® ultra invisible Buenos días Ultradelgada_Diff_02.jpg",
+      "name": "06B - Saba® ultra invisible Buenos días Ultradelgada_Diff_02"
+    }
+  ],
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0,
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0.0,
+                1.0
+              ]
+            }
+          }
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.5
+      },
+      "doubleSided": true,
+      "name": "Mat"
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
+          },
+          "indices": 4,
+          "material": 0
+        }
+      ],
+      "name": "Saba__ultra_invisible_ultra_thin_TOMA1"
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0,
+      "rotation": [
+        0.0,
+        -1.0,
+        0.0,
+        3.5762784E-07
+      ],
+      "scale": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "translation": [
+        -0.00154741085,
+        0.1,
+        -0.149640054
+      ],
+      "name": "Saba__ultra_invisible_ultra_thin_TOMA1"
+    }
+  ],
+  "samplers": [
+    {
+      "minFilter": 9729
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ],
+      "name": "Saba__ultra_invisible_ultra_thin_TOMA1"
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0,
+      "name": "06B - Saba® ultra invisible Buenos días Ultradelgada_Diff_02"
+    }
+  ]
+}
