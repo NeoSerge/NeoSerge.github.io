@@ -61,10 +61,10 @@ class App{
 		// Load a GLTF resource
 		loader.load(
 			// resource URL
-			`toalla.gltf`,
+			`saba.glb`,
 			// called when the resource is loaded
 			function ( gltf ) {
-				const object = gltf.scene.children[5];
+				const object = gltf.scene.children[0];
 				
 				object.traverse(function(child){
 					if (child.isMesh){
@@ -86,9 +86,9 @@ class App{
 				self.knight = new Player(options);
                 self.knight.object.visible = false;
 				
-				self.knight.action = 'Dance';
-				const scale = 0.003;
-				self.knight.object.scale.set(scale, scale, scale); 
+				self.knight.action = 'Saba__ultra_invisible_ultra_thin_TOMA1';
+				//const scale = 0.003;
+				//self.knight.object.scale.set(scale, scale, scale); 
 				
                 self.loadingBar.visible = false;
 			},
