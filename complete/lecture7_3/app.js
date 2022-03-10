@@ -33,8 +33,8 @@ class App{
         this.setEnvironment();
         
         this.reticle = new THREE.Mesh(
-            //new THREE.RingBufferGeometry( 0.15, 0.2, 32 ).rotateX( - Math.PI / 2 ),
-            new THREE.RingBufferGeometry( 0, 0.1, 1 ).rotateX( - Math.PI / 2 ),
+            new THREE.RingBufferGeometry( 0.15, 0.2, 32 ).rotateX( - Math.PI / 2 ),
+            //new THREE.RingBufferGeometry( 0, 0.1, 1 ).rotateX( - Math.PI / 2 ),
             new THREE.MeshBasicMaterial()
         );
         
@@ -126,8 +126,9 @@ class App{
 
 				self.scene.add( gltf.scene );
                 self.chair = gltf.scene;
-        
+                
                 self.chair.visible = false; 
+                self.chair.frustumCulled = false;
                 
                 self.loadingBar.visible = false;
                 
