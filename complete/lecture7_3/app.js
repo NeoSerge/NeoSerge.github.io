@@ -14,8 +14,9 @@ class App{
 
 		this.assetsPath = '../../assets/ar-shop/';
         
-		this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 100000 );
+		this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10000 );
 		this.camera.position.set( 0, 1.6, 0 );
+        
         
 		this.scene = new THREE.Scene();
 
@@ -27,6 +28,7 @@ class App{
 		this.renderer.setPixelRatio( window.devicePixelRatio );
 		this.renderer.setSize( window.innerWidth, window.innerHeight );
         this.renderer.outputEncoding = THREE.sRGBEncoding;
+        
 		container.appendChild( this.renderer.domElement );
         this.setEnvironment();
         
