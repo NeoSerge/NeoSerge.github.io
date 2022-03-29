@@ -61,7 +61,7 @@ class App{
 		// Load a GLTF resource
 		loader.load(
 			// resource URL
-			`chair2_.glb`,
+			`maqueta.glb`,
 			// called when the resource is loaded
 			function ( gltf ) {
 				const object = gltf.scene.children[0];
@@ -87,8 +87,8 @@ class App{
                 self.knight.object.visible = false;
 				
 				//self.knight.action = 'Saba__ultra_invisible_ultra_thin_TOMA1';
-				//const scale = 0.003;
-				//self.knight.object.scale.set(scale, scale, scale); 
+				const scale = 0.003;
+				self.knight.object.scale.set(scale, scale, scale); 
 				
                 self.loadingBar.visible = false;
 			},
