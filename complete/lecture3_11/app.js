@@ -61,7 +61,7 @@ class App{
 		// Load a GLTF resource
 		loader.load(
 			// resource URL
-			`saba.glb`,
+			`chair2_.glb`,
 			// called when the resource is loaded
 			function ( gltf ) {
 				const object = gltf.scene.children[0];
