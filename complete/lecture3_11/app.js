@@ -86,7 +86,7 @@ class App{
 				self.knight = new Player(options);
                 self.knight.object.visible = false;
 				
-				self.knight.action = 'Saba__ultra_invisible_ultra_thin_TOMA1';
+				//self.knight.action = 'Saba__ultra_invisible_ultra_thin_TOMA1';
 				//const scale = 0.003;
 				//self.knight.object.scale.set(scale, scale, scale); 
 				
