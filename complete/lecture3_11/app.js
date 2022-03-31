@@ -15,7 +15,7 @@ class App{
         
         this.clock = new THREE.Clock();
         
-		this.camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.01, 20 );
+		this.camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.01, 1000 );
 		
 		this.scene = new THREE.Scene();
         
@@ -44,6 +44,17 @@ class App{
         this.origin = new THREE.Vector3();
         this.euler = new THREE.Euler();
         this.quaternion = new THREE.Quaternion();
+
+        this.reticle = new THREE.Mesh(
+            //new THREE.RingBufferGeometry( 0.15, 0.2, 32 ).rotateX( - Math.PI / 2 ),
+            //new THREE.RingBufferGeometry( 0, 0.1, 1 ).rotateX( - Math.PI / 2 ),
+            new THREE.PlaneGeometry(0.2,.01,1,1),
+            new THREE.MeshBasicMaterial()
+        );
+        
+        this.reticle.matrixAutoUpdate = false;
+        this.reticle.visible = false;
+        this.scene.add( this.reticle );
         
         this.initScene();
         this.setupXR();
@@ -128,19 +139,49 @@ class App{
     setupXR(){
         this.renderer.xr.enabled = true; 
         
+        let currentSession = null;
         const self = this;
-        let controller, controller1;
         
-        function onSessionStart(){
-            self.ui.mesh.position.set( 0, -0.15, -0.3 );
-            self.camera.add( self.ui.mesh );
+        const sessionInit = { requiredFeatures: [ 'hit-test' ] };
+        
+        
+        function onSessionStarted( session ) {
+
+            session.addEventListener( 'end', onSessionEnded );
+
+            self.renderer.xr.setReferenceSpaceType( 'local' );
+            self.renderer.xr.setSession( session );
+       
+            currentSession = session;
+            
+        }
+
+        function onSessionEnded( ) {
+
+            currentSession.removeEventListener( 'end', onSessionEnded );
+
+            currentSession = null;
+            
+            if (self.chair !== null){
+                self.scene.remove( self.chair );
+                self.chair = null;
+            }
+            
+            self.renderer.setAnimationLoop( null );
+
+        }
+
+        if ( currentSession === null ) {
+
+            navigator.xr.requestSession( 'immersive-ar', sessionInit ).then( onSessionStarted );
+
+        } else {
+
+            currentSession.end();
+
         }
         
-        function onSessionEnd(){
-            self.camera.remove( self.ui.mesh );
-        }
-        
-        const btn = new ARButton( this.renderer, { onSessionStart, onSessionEnd });//, sessionInit: { optionalFeatures: [ 'dom-overlay' ], domOverlay: { root: document.body } } } );
+        const btn = new ARButton( this.renderer, { onSessionStarted, onSessionEnded });//, sessionInit: { optionalFeatures: [ 'dom-overlay' ], domOverlay: { root: document.body } } } );
         
         this.gestures = new ControllerGestures( this.renderer );
         this.gestures.addEventListener( 'tap', (ev)=>{
