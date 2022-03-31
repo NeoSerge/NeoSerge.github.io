@@ -38,8 +38,8 @@ class App{
         this.controls.target.set(0, 3.5, 0);
         this.controls.update();
         
-        this.stats = new Stats();
-        document.body.appendChild( this.stats.dom );
+        //this.stats = new Stats();
+        //document.body.appendChild( this.stats.dom );
         
         this.origin = new THREE.Vector3();
         this.euler = new THREE.Euler();
@@ -303,7 +303,7 @@ class App{
     
 	render( timestamp, frame ) {   
         const dt = this.clock.getDelta();
-        this.stats.update();
+        //this.stats.update();
 
         if ( frame ) {
             if ( this.hitTestSourceRequested === false ) this.requestHitTestSource( )
