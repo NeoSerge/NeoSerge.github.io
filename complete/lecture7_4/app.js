@@ -48,9 +48,9 @@ class App{
 
         
         this.reticle = new THREE.Mesh(
-            new THREE.RingBufferGeometry( 0.1, 0.2, 32 ).rotateX( - Math.PI / 2 ),
+            //new THREE.RingBufferGeometry( 0.1, 0.2, 32 ).rotateX( - Math.PI / 2 ),
             //new THREE.RingBufferGeometry( 0, 0.1, 1 ).rotateX( - Math.PI / 2 ),
-            //new THREE.PlaneGeometry(0.2,.01,1,1),
+            new THREE.PlaneGeometry(0.2,.01,1,1),
             new THREE.MeshBasicMaterial()
         );
         
