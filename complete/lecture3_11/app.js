@@ -162,10 +162,10 @@ class App{
 
             currentSession = null;
             
-            if (self.chair !== null){
+/*             if (self.chair !== null){
                 self.scene.remove( self.chair );
                 self.chair = null;
-            }
+            } */
             
             self.renderer.setAnimationLoop( null );
 
@@ -181,7 +181,7 @@ class App{
 
         }
         
-        const btn = new ARButton( this.renderer, { onSessionStarted, onSessionEnded });//, sessionInit: { optionalFeatures: [ 'dom-overlay' ], domOverlay: { root: document.body } } } );
+        //const btn = new ARButton( this.renderer, { onSessionStarted, onSessionEnded });//, sessionInit: { optionalFeatures: [ 'dom-overlay' ], domOverlay: { root: document.body } } } );
         
         this.gestures = new ControllerGestures( this.renderer );
         this.gestures.addEventListener( 'tap', (ev)=>{
