@@ -46,10 +46,10 @@ class App{
         this.quaternion = new THREE.Quaternion();
 
         this.reticle = new THREE.Mesh(
-            //new THREE.RingBufferGeometry( 0.15, 0.2, 32 ).rotateX( - Math.PI / 2 ),
-            //new THREE.RingBufferGeometry( 0, 0.1, 1 ).rotateX( - Math.PI / 2 ),
-            new THREE.PlaneGeometry(0.2,.01,1,1),
-            new THREE.MeshBasicMaterial()
+            new THREE.RingBufferGeometry( 0.15, 0.2, 32 ).rotateX( - Math.PI / 2 ),
+            new THREE.RingBufferGeometry( 0, 0.1, 1 ).rotateX( - Math.PI / 2 ),
+            //new THREE.PlaneGeometry(0.2,.01,1,1),
+            //new THREE.MeshBasicMaterial()
         );
         
         this.reticle.matrixAutoUpdate = false;
@@ -102,6 +102,7 @@ class App{
 				self.knight.object.scale.set(scale, scale, scale); 
 				
                 self.loadingBar.visible = false;
+                self.renderer.setAnimationLoop( self.render.bind(self) );
 			},
 			// called while loading is progressing
 			function ( xhr ) {
@@ -181,7 +182,7 @@ class App{
 
         }
         
-        //const btn = new ARButton( this.renderer, { onSessionStarted, onSessionEnded });//, sessionInit: { optionalFeatures: [ 'dom-overlay' ], domOverlay: { root: document.body } } } );
+        const btn = new ARButton( this.renderer, { onSessionStarted, onSessionEnded });//, sessionInit: { optionalFeatures: [ 'dom-overlay' ], domOverlay: { root: document.body } } } );
         
         this.gestures = new ControllerGestures( this.renderer );
         this.gestures.addEventListener( 'tap', (ev)=>{
@@ -242,6 +243,57 @@ class App{
         
         this.renderer.setAnimationLoop( this.render.bind(this) );
     }
+
+
+    
+    requestHitTestSource(){
+        const self = this;
+        
+        const session = this.renderer.xr.getSession();
+
+        session.requestReferenceSpace( 'viewer' ).then( function ( referenceSpace ) {
+            
+            session.requestHitTestSource( { space: referenceSpace } ).then( function ( source ) {
+
+                self.hitTestSource = source;
+
+            } );
+
+        } );
+
+        session.addEventListener( 'end', function () {
+
+            self.hitTestSourceRequested = false;
+            self.hitTestSource = null;
+            self.referenceSpace = null;
+
+        } );
+
+        this.hitTestSourceRequested = true;
+
+    }
+
+
+    getHitTestResults( frame ){
+        const hitTestResults = frame.getHitTestResults( this.hitTestSource );
+
+        if ( hitTestResults.length ) {
+            
+            const referenceSpace = this.renderer.xr.getReferenceSpace();
+            const hit = hitTestResults[ 0 ];
+            const pose = hit.getPose( referenceSpace );
+
+            this.reticle.visible = true;
+            this.reticle.matrix.fromArray( pose.transform.matrix );
+
+        } else {
+
+            this.reticle.visible = false;
+
+        }
+
+    }
+
     
     resize(){
         this.camera.aspect = window.innerWidth / window.innerHeight;
@@ -249,9 +301,16 @@ class App{
         this.renderer.setSize( window.innerWidth, window.innerHeight );  
     }
     
-	render( ) {   
+	render( timestamp, frame ) {   
         const dt = this.clock.getDelta();
         this.stats.update();
+
+        if ( frame ) {
+            if ( this.hitTestSourceRequested === false ) this.requestHitTestSource( )
+
+            if ( this.hitTestSource ) this.getHitTestResults( frame );
+        }
+
         if ( this.renderer.xr.isPresenting ){
             this.gestures.update();
             this.ui.update();
