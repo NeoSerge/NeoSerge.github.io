@@ -210,7 +210,7 @@ class App{
                 self.knight.object.visible = false;
 				
 				//self.knight.action = 'Saba__ultra_invisible_ultra_thin_TOMA1';
-				const scale = 0.03;
+				const scale = 0.005;
 				self.knight.object.scale.set(scale, scale, scale); 
 				
                 self.loadingBar.visible = false;
@@ -328,6 +328,7 @@ class App{
     }
     
 	render( timestamp, frame ) {
+        const dt = this.clock.getDelta();
 
         if ( frame ) {
             if ( this.hitTestSourceRequested === false ) this.requestHitTestSource( )
@@ -335,6 +336,12 @@ class App{
             if ( this.hitTestSource ) this.getHitTestResults( frame );
         }
 
+        if ( this.renderer.xr.isPresenting ){
+            this.gestures.update();
+            this.ui.update();
+        }
+        if ( this.knight !== undefined ) this.knight.update(dt);
+        
         this.renderer.render( this.scene, this.camera );
 
     }
