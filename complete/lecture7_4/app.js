@@ -20,8 +20,8 @@ class App{
 
 		this.assetsPath = '../../assets/ar-shop/';
         
-		this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10000 );
-		this.camera.position.set( 0, 1.6, 0 );
+		this.camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.01, 1000 );
+		//this.camera.position.set( 0, 1.6, 0 );
         
         
 		this.scene = new THREE.Scene();
@@ -48,9 +48,9 @@ class App{
 
         
         this.reticle = new THREE.Mesh(
-            //new THREE.RingBufferGeometry( 0.15, 0.2, 32 ).rotateX( - Math.PI / 2 ),
+            new THREE.RingBufferGeometry( 0.15, 0.2, 32 ).rotateX( - Math.PI / 2 ),
             //new THREE.RingBufferGeometry( 0, 0.1, 1 ).rotateX( - Math.PI / 2 ),
-            new THREE.PlaneGeometry(0.2,.01,1,1),
+            //new THREE.PlaneGeometry(0.2,.01,1,1),
             new THREE.MeshBasicMaterial()
         );
         
@@ -132,10 +132,10 @@ class App{
         this.gestures.addEventListener( 'swipe', (ev)=>{
             //console.log( ev );   
             //self.ui.updateElement('info', `swipe ${ev.direction}` );
-            if (self.knight.object.visible){
+            /* if (self.knight.object.visible){
                 self.knight.object.visible = false;
                 self.scene.remove( self.knight.object ); 
-            }
+            }*/ 
         });
         this.gestures.addEventListener( 'pinch', (ev)=>{
             //console.log( ev );  
