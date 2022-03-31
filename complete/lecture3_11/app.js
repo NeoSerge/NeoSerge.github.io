@@ -7,6 +7,7 @@ import { ARButton } from '../../libs/ARButton.js';
 import { LoadingBar } from '../../libs/LoadingBar.js';
 import { Player } from '../../libs/Player.js';
 import { ControllerGestures } from '../../libs/ControllerGestures.js';
+import { RGBELoader } from '../../libs/three/jsm/RGBELoader.js';
 
 class App{
 	constructor(){
@@ -33,6 +34,7 @@ class App{
         this.renderer.outputEncoding = THREE.sRGBEncoding;
         
 		container.appendChild( this.renderer.domElement );
+        this.setEnvironment();
         
         this.controls = new OrbitControls( this.camera, this.renderer.domElement );
         this.controls.target.set(0, 3.5, 0);
@@ -58,6 +60,7 @@ class App{
         
         this.initScene();
         this.setupXR();
+        this.initAR();
         
         window.addEventListener('resize', this.resize.bind(this) );
 	}	
@@ -140,49 +143,42 @@ class App{
     setupXR(){
         this.renderer.xr.enabled = true; 
         
-        let currentSession = null;
+        if ( 'xr' in navigator ) {
+
+			navigator.xr.isSessionSupported( 'immersive-ar' ).then( ( supported ) => {
+
+                if (supported){
+                    const collection = document.getElementsByClassName("ar-button");
+                    [...collection].forEach( el => {
+                        el.style.display = 'block';
+                    });
+                }
+			} );
+            
+		} 
+
         const self = this;
-        
-        const sessionInit = { requiredFeatures: [ 'hit-test' ] };
-        
-        
-        function onSessionStarted( session ) {
 
-            session.addEventListener( 'end', onSessionEnded );
+        this.hitTestSourceRequested = false;
+        this.hitTestSource = null;
 
-            self.renderer.xr.setReferenceSpaceType( 'local' );
-            self.renderer.xr.setSession( session );
-       
-            currentSession = session;
+        function onSelect() {
+            if (self.chair===undefined) return;
             
+            if (self.reticle.visible){
+                self.chair.position.setFromMatrixPosition( self.reticle.matrix );
+                self.chair.visible = true;
+            }
         }
 
-        function onSessionEnded( ) {
-
-            currentSession.removeEventListener( 'end', onSessionEnded );
-
-            currentSession = null;
-            
-/*             if (self.chair !== null){
-                self.scene.remove( self.chair );
-                self.chair = null;
-            } */
-            
-            self.renderer.setAnimationLoop( null );
-
-        }
-
-        if ( currentSession === null ) {
-
-            navigator.xr.requestSession( 'immersive-ar', sessionInit ).then( onSessionStarted );
-
-        } else {
-
-            currentSession.end();
-
-        }
+        this.controller = this.renderer.xr.getController( 0 );
+        this.controller.addEventListener( 'select', onSelect );
         
-        const btn = new ARButton( this.renderer, { onSessionStarted });//, sessionInit: { optionalFeatures: [ 'dom-overlay' ], domOverlay: { root: document.body } } } );
+        this.scene.add( this.controller );
+        
+        
+        
+        //const btn = new ARButton( this.renderer, { onSessionStarted });//, sessionInit: { optionalFeatures: [ 'dom-overlay' ], domOverlay: { root: document.body } } } );
         
         this.gestures = new ControllerGestures( this.renderer );
         this.gestures.addEventListener( 'tap', (ev)=>{
@@ -241,8 +237,10 @@ class App{
             }
         });
         
-        this.renderer.setAnimationLoop( this.render.bind(this) );
+        //this.renderer.setAnimationLoop( this.render.bind(this) );
     }
+
+   
 
 
     
@@ -299,6 +297,69 @@ class App{
         this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize( window.innerWidth, window.innerHeight );  
+    }
+
+    setEnvironment(){
+        const loader = new RGBELoader().setDataType( THREE.UnsignedByteType );
+        const pmremGenerator = new THREE.PMREMGenerator( this.renderer );
+        pmremGenerator.compileEquirectangularShader();
+        
+        const self = this;
+        
+        loader.load( '../../assets/hdr/venice_sunset_1k.hdr', ( texture ) => {
+          const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
+          pmremGenerator.dispose();
+
+          self.scene.environment = envMap;
+
+        }, undefined, (err)=>{
+            console.error( 'An error occurred setting the environment');
+        } );
+    }
+
+
+    initAR(){
+        let currentSession = null;
+        const self = this;
+        
+        const sessionInit = { requiredFeatures: [ 'hit-test' ] };
+        
+        
+        function onSessionStarted( session ) {
+
+            session.addEventListener( 'end', onSessionEnded );
+
+            self.renderer.xr.setReferenceSpaceType( 'local' );
+            self.renderer.xr.setSession( session );
+       
+            currentSession = session;
+            
+        }
+
+        function onSessionEnded( ) {
+
+            currentSession.removeEventListener( 'end', onSessionEnded );
+
+            currentSession = null;
+            
+            if (self.chair !== null){
+                self.scene.remove( self.chair );
+                self.chair = null;
+            }
+            
+            self.renderer.setAnimationLoop( null );
+
+        }
+
+        if ( currentSession === null ) {
+
+            navigator.xr.requestSession( 'immersive-ar', sessionInit ).then( onSessionStarted );
+
+        } else {
+
+            currentSession.end();
+
+        }
     }
     
 	render( timestamp, frame ) {   
