@@ -77,6 +77,7 @@ class App{
             if (self.reticle.visible){
                 self.chair.position.setFromMatrixPosition( self.reticle.matrix );
                 self.chair.visible = true;
+                self.reticle.visible = false;
             }
         }
 
