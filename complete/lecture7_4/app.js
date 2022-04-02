@@ -92,8 +92,13 @@ class App{
                 self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
                 self.knight.object.visible = true;
                 self.reticle.visible = false;
-                self.hitTestSourceRequested = false;
-                self.hitTestSource = null;
+                self.reticle = new THREE.Mesh(
+                    new THREE.RingBufferGeometry(0, 0, 0 ).rotateX( - Math.PI / 2 ),
+                    //new THREE.RingBufferGeometry( 0, 0.1, 1 ).rotateX( - Math.PI / 2 ),
+                    //new THREE.PlaneGeometry(0.2,.01,1,1),
+                    new THREE.MeshBasicMaterial()
+                );
+
             }
         }
 
