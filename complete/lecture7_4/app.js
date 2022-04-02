@@ -92,8 +92,6 @@ class App{
                 self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
                 self.knight.object.visible = true;
                 self.reticle.visible = false;
-                self.hitTestSourceRequested = false;
-                self.hitTestSource = null;
             }
         }
 
