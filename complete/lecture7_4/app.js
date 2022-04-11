@@ -17,7 +17,7 @@ class App{
         this.loadingBar = new LoadingBar();
         this.loadingBar.visible = false;
 
-		this.assetsPath = '../../assets/ar-shop/Maqueta/';
+		this.assetsPath = '../../assets/ar-shop/';
         
 		this.camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.01, 1000 );
 		//this.camera.position.set( 0, 1.6, 0 );
