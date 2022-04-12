@@ -159,6 +159,9 @@ class App{
 
         const self = this;
 
+        self.ui.mesh.position.set( 0, -0.15, -0.3 );
+        self.camera.add( self.ui.mesh );
+
         this.hitTestSourceRequested = false;
         this.hitTestSource = null;
 
@@ -379,6 +382,8 @@ class App{
         if ( this.knight !== undefined ) this.knight.update(dt);
         this.renderer.render( this.scene, this.camera );
     }
+
+    
 }
 
 export { App };
