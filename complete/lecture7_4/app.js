@@ -193,8 +193,10 @@ class App{
 		const loader = new GLTFLoader( ).setPath(this.assetsPath);
         const self = this;
         
+        var manager = new THREE.LoadingManager();
         this.loadingBar.visible = true;
 		
+        manager.onLoad = () => {
 		// Load a glTF resource
 		loader.load(
 			// resource URL
@@ -249,6 +251,7 @@ class App{
 
 			}
 		);
+        }
         this.initAR();
 	}			
     
