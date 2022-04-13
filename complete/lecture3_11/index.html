@@ -19,9 +19,29 @@
                 background-color: #000;
             }
         </style>
-        
+        <style>
+            .container {
+              height: 200px;
+              position: relative;
+              border: 3px solid green;
+            }
+            
+            .center {
+              margin: 0;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              -ms-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+            }
+            </style>
 	</head>
 	<body>
+        <div class="container">
+            <div class="center">
+        <button onclick="window.app.initAR();">Iniciar</button>
+            </div>
+        </div>
         <script src="../../libs/fas.js"></script>
         <script src="../../libs/hammer.min.js"></script>
         <script type="module">
