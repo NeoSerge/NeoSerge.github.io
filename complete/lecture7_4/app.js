@@ -19,15 +19,15 @@ class App{
 
 		this.assetsPath = '../../assets/ar-shop/';
         
-		this.camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.01, 1000 );
+		this.camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.01, 10000 );
 		//this.camera.position.set( 0, 1.6, 0 );
         
         
 		this.scene = new THREE.Scene();
 
-		//const ambient = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 0.5);
-        //ambient.position.set( 0.5, 1, 0.25 );
-		//this.scene.add(ambient);
+		const ambient = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 0.5);
+        ambient.position.set( 0.5, 1, 0.25 );
+		this.scene.add(ambient);
 			
 		this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true } );
 		this.renderer.setPixelRatio( window.devicePixelRatio );
