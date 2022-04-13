@@ -223,6 +223,7 @@ class App{
 				
 				self.knight = new Player(options);
                 self.knight.object.visible = false;
+                self.knight.frustumCulled = false;
 				
 				//self.knight.action = 'Saba__ultra_invisible_ultra_thin_TOMA1';
 				const scale = 0.005;
